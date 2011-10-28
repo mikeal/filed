@@ -11,7 +11,7 @@
 Filed does a lazy stat call so you can actually open a file and being writing to it and if the file isn't there it will just be created.
 
 ```javascript
-var request = require('filed');
+var filed = require('filed');
 var f = filed('/newfile')
 f.write('test')
 f.end()
