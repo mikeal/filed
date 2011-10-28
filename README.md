@@ -24,7 +24,7 @@ The returned file object is a stream so you can do standard stream stuff to it. 
 So if you send data to it, it'll be a write stream.
 
 ```javascript
-fs.createReadStream(filed('/newfile'))
+fs.createReadStream.pipe(filed('/newfile'))
 ```
 
 If you pipe it to a destination it'll be a read stream.
