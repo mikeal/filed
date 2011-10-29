@@ -8,10 +8,10 @@
 
 ## Super simple to use
 
-Filed does a lazy stat call so you can actually open a file and being writing to it and if the file isn't there it will just be created.
+Filed does a lazy stat call so you can actually open a file and begin writing to it and if the file isn't there it will just be created.
 
 ```javascript
-var request = require('filed');
+var filed = require('filed');
 var f = filed('/newfile')
 f.write('test')
 f.end()
@@ -65,7 +65,7 @@ http.createServer(function (req, resp) {
 })
 ```
 
-The Etag and Last-Modified headers filed creates are based solely on the stat() call so if you pipe a request to an existing file the cache control headers will be taken in to account a 304 response will be sent if the cache control headers match a new stat() call. This can be very helpful in avoiding unnecessary disc reads.
+The Etag and Last-Modified headers filed creates are based solely on the stat() call so if you pipe a request to an existing file the cache control headers will be taken into account; a 304 response will be sent if the cache control headers match a new stat() call. This can be very helpful in avoiding unnecessary disc reads.
 
 ```javascript
 http.createServer(function (req, resp) {

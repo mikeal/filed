@@ -91,7 +91,7 @@ function File (options) {
           if (self.src && self.src.headers) {
             if (self.src.headers['if-none-match'] === self.etag ||
                 // Lazy last-modifed matching but it's faster than parsing Datetime
-                self.src.headers['if-modifified-since'] === self.lastmodified) {
+                self.src.headers['if-modified-since'] === self.lastmodified) {
               self.dest.statusCode = 304
               self.dest.end()
               return
