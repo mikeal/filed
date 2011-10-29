@@ -166,7 +166,7 @@ function testhttp () {
     request.get(url+'/test-lastmodified-wo', function (e, resp, body) {
       if (e) throw e
       if (resp.statusCode !== 200) throw new Error('Status code is not 200 it is '+resp.statusCode)
-      request.get({url:url+'/test-lastmodified-with', headers:{'if-modifified-since':resp.headers['last-modified']}}, function (e, resp) {
+      request.get({url:url+'/test-lastmodified-with', headers:{'if-modified-since':resp.headers['last-modified']}}, function (e, resp) {
         if (e) throw e
         if (resp.statusCode !== 304) throw new Error('Status code is not 304 it is '+resp.statusCode)
         console.log("Passed GET with if-modified-since")
