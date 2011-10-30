@@ -72,10 +72,10 @@ function File (options) {
          ) {
         if (err.code === 'ENOENT') {
           self.dest.statusCode = 404
-          self.end('Not Found')
+          self.dest.end('Not Found')
         } else {
           self.dest.statusCode = 500
-          self.end(err.message)
+          self.dest.end(err.message)
         }
         return
       }
