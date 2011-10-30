@@ -43,6 +43,7 @@ function File (options) {
   fs.stat(options.path, function (err, stats) {
 
     var finish = function (err, stats) {
+      if (err && err.code === 'ENOENT' && !self.dest && !self.src) self.src = self.path
       if (err && !self.dest && !self.src) return self.emit('error', err)
       if (err && self.dest && !self.dest.writeHead) return self.emit('error', err)
 
