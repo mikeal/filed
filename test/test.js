@@ -136,6 +136,12 @@ function testhttp () {
     x.pipe(resp)
   })
 
+  s.on('/test-not-found', function (req, resp) {
+    var x = filed(__dirname + "/there-is-no-such-file-here.no-extension")
+    req.pipe(x)
+    x.pipe(resp)
+  })
+
   s.listen(port, function () {
 
     fs.createReadStream(testfile).pipe(request.put(url+'/test-req'))
@@ -187,6 +193,12 @@ function testhttp () {
       assert.equal(resp.headers['content-type'], 'text/html')
       assert.equal(body, fs.readFileSync(path.join(__dirname, 'index.html')).toString())
       console.log("Passed GET of directory index, full pipe")
+    })
+
+    request.get(url+'/test-not-found', function (e, resp, body) {
+      if (e) throw e
+      if (resp.statusCode !== 404) throw new Error('Status code is not 404 it is '+resp.statusCode)
+      console.log("Passed Not Found produces 404")
     })
 
   })
