@@ -179,7 +179,8 @@ File.prototype.write = function (chunk, encoding) {
     this.emit('data', chunk)
   }
 }
-File.prototype.end = function () {
+File.prototype.end = function (chunk) {
+  if (chunk) this.write(chunk)
   if (this.buffering) {
     this.ended = true
   } else {
