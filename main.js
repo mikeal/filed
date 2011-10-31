@@ -151,6 +151,16 @@ function File (options) {
     } else {
       finish(err, stats)
     }
+    
+    if (!self.src && !self.dest) {
+      if (self.buffers.length > 0) {
+        stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path))
+      } else if (self.listeners('data').length > 0) {
+        fs.createReadStream(self.path).pipe(self.dest)
+      } else {
+        throw new Error('Not Implemented, lazy (future) dynamic read/write discovery,')
+      }
+    }
 
   })
 
