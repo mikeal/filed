@@ -25,7 +25,7 @@ function File (options) {
   self.index = options.index
 
   self.on('pipe', function (src) {
-    this.src = src;
+    this.src = src
   })
 
   this.buffering = true
