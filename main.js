@@ -84,9 +84,11 @@ function File (options) {
       // Source is an HTTP Server Request
       if (self.src && (self.src.method === 'GET' || self.src.method === 'HEAD')) {
 
-        self.dest.setHeader('content-type', self.mimetype)
-        self.dest.setHeader('etag', self.etag)
-        self.dest.setHeader('last-modified', self.lastmodified)
+        if (self.dest && self.dest.setHeader) {
+          self.dest.setHeader('content-type', self.mimetype)
+          self.dest.setHeader('etag', self.etag)
+          self.dest.setHeader('last-modified', self.lastmodified)
+        }
 
         if (self.dest && self.dest.writeHead) {
           if (self.src && self.src.headers) {
@@ -105,7 +107,7 @@ function File (options) {
           // Destination is not an HTTP response, GET and HEAD method are not allowed
           return
         }
-        if (self.dest || self.src.method !== 'HEAD') {
+        if (self.dest && self.src.method !== 'HEAD') {
           fs.createReadStream(self.path).pipe(self.dest)
         }
         return
