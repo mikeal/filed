@@ -82,15 +82,14 @@ function File (options) {
       }
 
       // Source is an HTTP Server Request
-      if (self.src && (self.src.method === 'GET' || self.src.method === 'HEAD')) {
-
-        if (self.dest && self.dest.setHeader) {
+      if (self.src && (self.src.method === 'GET' || self.src.method === 'HEAD') && self.dest) {
+        if (self.dest.setHeader) {
           self.dest.setHeader('content-type', self.mimetype)
           self.dest.setHeader('etag', self.etag)
           self.dest.setHeader('last-modified', self.lastmodified)
         }
 
-        if (self.dest && self.dest.writeHead) {
+        if (self.dest.writeHead) {
           if (self.src && self.src.headers) {
             if (self.src.headers['if-none-match'] === self.etag ||
                 // Lazy last-modifed matching but it's faster than parsing Datetime
@@ -103,15 +102,17 @@ function File (options) {
           // We're going to return the whole file
           self.dest.statusCode = 200
           self.dest.setHeader('content-length', stats.size)
-        } else if (self.dest && !self.dest.writeHead) {
+        } else {
           // Destination is not an HTTP response, GET and HEAD method are not allowed
           return
         }
-        if (self.dest && self.src.method !== 'HEAD') {
+        
+        if (self.src.method !== 'HEAD') {
           fs.createReadStream(self.path).pipe(self.dest)
         }
         return
       }
+      
       if (self.src && (self.src.method === 'PUT' || self.src.method === 'POST')) {
         if (!err) {
           // TODO handle overwrite case
@@ -127,6 +128,7 @@ function File (options) {
         }
         return
       }
+      
       // Desination is an HTTP response, we already handled 404 and 500
       if (self.dest && self.dest.writeHead) {
         self.dest.statusCode = 200
