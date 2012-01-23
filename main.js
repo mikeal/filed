@@ -30,7 +30,7 @@ function File (options) {
 
   this.buffering = true
 
-  this.mimetype = mimetypes.lookup(this.path.slice(this.path.lastIndexOf('.')+1))
+  this.mimetype = options.mimetype || mimetypes.lookup(this.path.slice(this.path.lastIndexOf('.')+1))
 
   var stopBuffering = function () {
     self.buffering = false
