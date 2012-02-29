@@ -57,7 +57,7 @@ function File (options) {
       }
 
       if (!err) {
-        self.etag = crypto.createHash('md5').update(stats.ino + stats.mtime + stats.size).digest("hex")
+        self.etag = crypto.createHash('md5').update(stats.ino+'/'+stats.mtime+'/'+stats.size).digest("hex")
         self.lastmodified = rfc822.getRFC822Date(stats.mtime)
       }
 
