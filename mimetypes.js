@@ -115,6 +115,7 @@ exports.types = {
   "tsi":"audio/TSP-audio",
   "tsp":"application/dsptype",
   "tsv":"text/tab-separated-values",
+  "txt":"text/plain",
   "unv":"application/i-deas",
   "ustar":"application/x-ustar",
   "vcd":"application/x-cdlink",
