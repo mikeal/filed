@@ -135,6 +135,7 @@ function File (options) {
         self.dest.setHeader('content-type', self.mimetype)
         self.dest.setHeader('etag', self.etag)
         self.dest.setHeader('last-modified', self.lastmodified)
+        self.dest.setHeader('content-length', stats.size)
         fs.createReadStream(self.path).pipe(self.dest)
         return
       }
