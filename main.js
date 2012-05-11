@@ -43,6 +43,7 @@ function File (options) {
   fs.stat(options.path, function (err, stats) {
 
     var finish = function (err, stats) {
+      self.stat = stats
       if (err && err.code === 'ENOENT' && !self.dest && !self.src) self.src = self.path
       if (err && !self.dest && !self.src) return self.emit('error', err)
       if (err && self.dest && !self.dest.writeHead) return self.emit('error', err)
@@ -153,6 +154,7 @@ function File (options) {
       self.path = path.join(self.path, self.index)
       self.mimetype = mimetypes.lookup(self.path.slice(self.path.lastIndexOf('.')+1))
       fs.stat(self.path, finish)
+      return
     } else {
       finish(err, stats)
     }
@@ -163,7 +165,7 @@ function File (options) {
       } else if (self.listeners('data').length > 0) {
         fs.createReadStream(self.path).pipe(self.dest)
       } else {
-        throw new Error('Not Implemented, lazy (future) dynamic read/write discovery,')
+        fs.createReadStream(self.path).pipe(self)
       }
     }
 
