@@ -142,6 +142,12 @@ function testhttp () {
     x.pipe(resp)
   })
 
+  s.on('/test-head', function (req, resp) {
+    var x = filed(__dirname)
+    req.pipe(x)
+    x.pipe(resp)
+  })
+
   s.listen(port, function () {
 
     fs.createReadStream(testfile).pipe(request.put(url+'/test-req'))
@@ -199,6 +205,13 @@ function testhttp () {
       if (e) throw e
       if (resp.statusCode !== 404) throw new Error('Status code is not 404 it is '+resp.statusCode)
       console.log("Passed Not Found produces 404")
+    })
+
+    request.head(url+'/test-head', function (e, resp) {
+      if (e) throw e
+      if (resp.statusCode !== 200) throw new Error('Status code is not 200 it is'+resp.statusCode)
+      assert.equal(resp.headers['content-type'], 'text/html')
+      console.log("Passed HEAD of directory index")
     })
 
   })
