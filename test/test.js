@@ -154,7 +154,7 @@ function testhttp () {
     var x = request.get(url+'/test-resp', function (e, resp) {
       if (e) throw e
       assert.equal(resp.statusCode, 200)
-      assert.equal(resp.headers['content-type'], 'text/javascript')
+      assert.equal(resp.headers['content-type'], 'application/javascript')
       console.log("Passed GET file without piping request")
     })
     x.pipe(new FileValidator(testfile))
