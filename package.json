@@ -10,7 +10,7 @@
   "engines": {
     "node": "*"
   },
-  "dependencies": { "mime": ">= 1.2.6" }
+  "dependencies": { "mime": ">= 1.2.6" },
   "scripts": {"test": "node test/test.js"},
   "main": "./main"
 }
