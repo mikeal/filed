@@ -176,6 +176,7 @@ util.inherits(File, stream.Stream)
 File.prototype.pipe = function (dest, options) {
   this.dest = dest
   this.destOptions = options
+  dest.emit('pipe', this)
   // stream.Stream.prototype.pipe.call(this, dest, options)
 }
 File.prototype.write = function (chunk, encoding) {
