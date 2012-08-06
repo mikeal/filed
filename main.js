@@ -3,7 +3,7 @@ var fs = require('fs')
   , crypto = require('crypto')
   , stream = require('stream')
   , path = require('path')
-  , mimetypes = require('./mimetypes')
+  , mime = require('mime')
   , rfc822 = require('./rfc822')
   ;
 
@@ -30,7 +30,7 @@ function File (options) {
 
   this.buffering = true
 
-  this.mimetype = options.mimetype || mimetypes.lookup(this.path.slice(this.path.lastIndexOf('.')+1))
+  this.mimetype = options.mimetype || mime.lookup(this.path.slice(this.path.lastIndexOf('.')+1))
 
   var stopBuffering = function () {
     self.buffering = false
@@ -152,7 +152,7 @@ function File (options) {
 
     if (!err && stats.isDirectory()) {
       self.path = path.join(self.path, self.index)
-      self.mimetype = mimetypes.lookup(self.path.slice(self.path.lastIndexOf('.')+1))
+      self.mimetype = mime.lookup(self.path.slice(self.path.lastIndexOf('.')+1))
       fs.stat(self.path, finish)
       return
     } else {
