@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/mikeal/filed.png)](http://travis-ci.org/mikeal/filed)
 # filed -- Simplified file library.
 
 ## Install
