@@ -178,6 +178,7 @@ File.prototype.pipe = function (dest, options) {
   this.destOptions = options
   dest.emit('pipe', this)
   // stream.Stream.prototype.pipe.call(this, dest, options)
+  return dest
 }
 File.prototype.write = function (chunk, encoding) {
   if (encoding) chunk = chunk.toString(encoding)
