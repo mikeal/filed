@@ -74,3 +74,6 @@ http.createServer(function (req, resp) {
 ```
 
 Just to round out the full feature set and make it full file server if you give filed an existing directory it will actually check for an index.html file in that directory and serve it if it exists.
+
+## License
+`ASL 2.0`, see [LICENSE](LICENSE) file.
