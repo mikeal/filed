@@ -110,6 +110,8 @@ function File (options) {
         
         if (self.src.method !== 'HEAD') {
           fs.createReadStream(self.path).pipe(self.dest)
+        } else {
+          self.dest.end()
         }
         return
       }
