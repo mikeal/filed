@@ -1,5 +1,7 @@
 # filed -- Simplified file library.
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/mikeal/filed.svg)](https://greenkeeper.io/)
+
 ## Install
 
 <pre>
