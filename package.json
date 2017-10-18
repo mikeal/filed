@@ -10,6 +10,7 @@
   "engines": {
     "node": "*"
   },
+  "license": "ASL 2.0",
   "dependencies": {
     "mime": ">= 1.2.6"
   },
