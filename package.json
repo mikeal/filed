@@ -12,7 +12,7 @@
   },
   "license": "ASL 2.0",
   "dependencies": {
-    "mime": ">= 1.2.6"
+    "mime": "1.2.6"
   },
   "scripts": {
     "test": "node test/test.js"
