@@ -32,6 +32,9 @@ function File (options) {
 
   this.mimetype = options.mimetype || mime.getType(this.path.slice(this.path.lastIndexOf('.')+1))
 
+  var charset = mime.charsets.lookup(this.mimetype);
+  if (charset) this.mimetype+='; charset='+charset;
+
   var stopBuffering = function () {
     self.buffering = false
     while (self.buffers.length) {
@@ -107,13 +110,13 @@ function File (options) {
           // Destination is not an HTTP response, GET and HEAD method are not allowed
           return
         }
-        
+
         if (self.src.method !== 'HEAD') {
           fs.createReadStream(self.path).pipe(self.dest)
         }
         return
       }
-      
+
       if (self.src && (self.src.method === 'PUT' || self.src.method === 'POST')) {
         if (!err) {
           // TODO handle overwrite case
@@ -129,7 +132,7 @@ function File (options) {
         }
         return
       }
-      
+
       // Desination is an HTTP response, we already handled 404 and 500
       if (self.dest && self.dest.writeHead) {
         self.dest.statusCode = 200
@@ -158,7 +161,7 @@ function File (options) {
     } else {
       finish(err, stats)
     }
-    
+
     if (!self.src && !self.dest) {
       if (self.buffers.length > 0) {
         stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path))
