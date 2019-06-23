@@ -144,7 +144,7 @@ function File (options) {
       // Destination is not an HTTP request
 
       if (self.src && !self.dest) {
-        stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path))
+        stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path).on('close',function(){self.close()}))
       } else if (self.dest && !self.src) {
         fs.createReadStream(self.path).pipe(self.dest)
       }
@@ -161,7 +161,7 @@ function File (options) {
     
     if (!self.src && !self.dest) {
       if (self.buffers.length > 0) {
-        stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path))
+        stream.Stream.prototype.pipe.call(self, fs.createWriteStream(self.path).on('close',function(){self.close()}))
       } else if (self.listeners('data').length > 0) {
         fs.createReadStream(self.path).pipe(self.dest)
       } else {
@@ -195,6 +195,9 @@ File.prototype.end = function (chunk) {
   } else {
     this.emit('end')
   }
+}
+File.prototype.close = function (chunk) {
+	this.emit('close')
 }
 
 module.exports = function (options) {
